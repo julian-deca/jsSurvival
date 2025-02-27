@@ -1,0 +1,19 @@
+#canvas {
+  border: 1px solid black;
+  margin: 0 auto;
+}
+#title {
+  text-align: center;
+}
+.container {
+  display: flex;
+  justify-content: center;
+}
+.score {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+}
+.image{
+  display:none;
+}
