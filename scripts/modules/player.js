@@ -2,7 +2,7 @@ import { Run, Idle, Jump, Fall, Attack } from "./playerStates.js";
 import Mob from "./mob.js";
 import * as images from "./images.js";
 import Layer from "./playerLayer.js";
-
+import HotBar from "./hotBar.js";
 class Player extends Mob {
   constructor(
     game,
@@ -44,6 +44,13 @@ class Player extends Mob {
     this.facingRight = true;
     this.currentState = this.states["IDLE"];
     this.onGround = false;
+    this.hotBar = new HotBar(
+      game,
+      this.game.width / 2 - 360 / 2,
+      game.height - 45,
+      360,
+      9
+    );
   }
   draw(context) {
     if (!this.facingRight) {
@@ -77,6 +84,7 @@ class Player extends Mob {
     this.layers.forEach((layer) => {
       layer.draw(context, this.frameX, this.frameY);
     });
+    //this.hotBar.draw(context);
     if (this.count >= this.maxCount) {
       this.getFrame();
       this.count = 0;

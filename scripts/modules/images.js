@@ -7,6 +7,11 @@ const woodenAxe = document.getElementById("woodenAxe");
 const woodenSword = document.getElementById("woodenSword");
 
 const dirtImage = document.getElementById("dirtImage");
+const inventoryFrame = document.getElementById("inventoryFrame");
+const selectedInventoryFrame = document.getElementById(
+  "selectedInventoryFrame"
+);
+
 const grassImage = document.getElementById("grassImage");
 const carpinchoSprite = document.getElementById("carpinchoSprite");
 
@@ -19,4 +24,14 @@ const playerSkin = {
 };
 const carpinchoSkin = { sprite: carpinchoSprite, width: 64, height: 64 };
 
-export { carpinchoSkin, dirtImage, grassImage, playerSkin };
+export {
+  carpinchoSkin,
+  dirtImage,
+  grassImage,
+  playerSkin,
+  woodenAxe,
+  woodenPicaxe,
+  woodenSword,
+  inventoryFrame,
+  selectedInventoryFrame,
+};
