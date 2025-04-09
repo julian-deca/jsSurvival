@@ -51,7 +51,7 @@ export class Idle extends State {
     this.game.player.frameX = 0;
     this.game.player.maxFrameX = 4;
     this.game.player.frameY = 0;
-    this.game.player.maxCount = 5;
+    this.game.player.maxCount = 15;
   }
   handleInput(keys) {
     if (

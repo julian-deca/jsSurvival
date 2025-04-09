@@ -1,5 +1,6 @@
 import Game from "/scripts/modules/game.js";
 import readCsv from "./modules/files.js";
+import MouseMovement from "./modules/mouseMovement.js";
 const title = document.getElementById("title");
 const canvas = document.getElementById("canvas");
 //const scoreRight = document.getElementById("score-right");
@@ -22,13 +23,16 @@ document.addEventListener("keyup", (e) => {
 
 readCsv("assets/grids/grid.csv").then((grid) => {
   const game = new Game(WIDTH, HEIGHT, grid);
-
+  const mouse = new MouseMovement(0, 0);
   function draw() {
+    mouse.update();
+    // console.log(mouse.x);
     context.clearRect(0, 0, WIDTH, HEIGHT);
     game.draw(context);
     game.update(keys);
 
     window.requestAnimationFrame(draw);
   }
+
   draw();
 });

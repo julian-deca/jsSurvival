@@ -1,8 +1,10 @@
 class Layer {
-  constructor(player, sprite) {
+  constructor(player, sprite, handItem = false) {
     this.player = player;
 
     this.sprite = sprite;
+
+    this.handItem = handItem;
   }
   draw(context, frameX, frameY) {
     if (!this.player.facingRight) {

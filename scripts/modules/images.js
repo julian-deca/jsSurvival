@@ -2,6 +2,10 @@ const playerSprite = document.getElementById("playerSprite");
 const playerHair = document.getElementById("playerHair");
 const playerPants = document.getElementById("playerPants");
 
+const woodenPicaxe = document.getElementById("woodenPicaxe");
+const woodenAxe = document.getElementById("woodenAxe");
+const woodenSword = document.getElementById("woodenSword");
+
 const dirtImage = document.getElementById("dirtImage");
 const grassImage = document.getElementById("grassImage");
 const carpinchoSprite = document.getElementById("carpinchoSprite");

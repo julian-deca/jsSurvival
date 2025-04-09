@@ -27,7 +27,6 @@ class Player extends Mob {
       imageWidth,
       imageHeight
     );
-    console.log(layerImages);
     this.maxFrameX = 4;
     this.layers = [];
     layerImages.forEach((image) => {
@@ -41,7 +40,7 @@ class Player extends Mob {
       ATTACK: new Attack(this.game),
     };
     this.count = 0;
-    this.maxCount = 5;
+    this.maxCount = 15;
     this.facingRight = true;
     this.currentState = this.states["IDLE"];
     this.onGround = false;

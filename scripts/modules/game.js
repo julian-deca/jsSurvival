@@ -38,7 +38,7 @@ class Game {
     this.mobs = [this.carpincho];
     this.carpinchos = [this.carpincho];
     this.devGrid = [];
-    this.devMode = true;
+    this.devMode = false;
     this.mapGrid();
   }
   draw(context) {
