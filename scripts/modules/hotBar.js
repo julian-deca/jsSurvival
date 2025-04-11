@@ -10,6 +10,7 @@ class HotBar {
     this.space = space;
     this.height = this.width / this.space;
     this.createSlots();
+    this.wheel = 0;
   }
   draw(context) {
     this.slots.forEach((slot) => slot.draw(context));
@@ -25,12 +26,23 @@ class HotBar {
         this.height,
         "black",
         images.inventoryFrame,
-        images.selectedInventoryFrame
+        images.selectedInventoryFrame,
+        i
       );
       this.slots.push(inventorySlot);
     }
   }
-  update(keys) {}
+  update(wheel) {
+    if (this.wheel != wheel)
+      this.slots.map((slot) => {
+        if (slot.index == wheel) {
+          slot.selected = true;
+        } else {
+          slot.selected = false;
+        }
+      });
+    this.wheel = wheel;
+  }
 }
 
 export default HotBar;

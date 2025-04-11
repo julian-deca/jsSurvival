@@ -7,6 +7,7 @@ class Tile {
     this.color = color;
     this.game = game;
     this.image = image;
+    this.highlight = false;
   }
   draw(context) {
     context.fillStyle = this.color;
@@ -14,12 +15,31 @@ class Tile {
       ? context.drawImage(this.image, this.x, this.y, this.width, this.height)
       : context.fillRect(this.x, this.y, this.width, this.height);
 
+    context.strokeStyle = "rgb(184, 187, 160)";
+    context.lineWidth = "2";
+
+    if (this.highlight) {
+      context.strokeRect(
+        this.x + 1,
+        this.y + 1,
+        this.width - 2,
+        this.height - 2
+      );
+    }
     //context.strokeRect(this.x, this.y, this.width, this.height);
 
     //this.drawHitBox(context);
     //context.strokeRect(this.topRect(context))
   }
-  update(keys) {}
+  update(keys, pos) {
+    this.x += this.game.screenScrollX;
+    this.y += this.game.screenScrollY;
+
+    this.highlight = this.game.checkCollisionPoint(
+      { x: this.x, y: this.y, width: this.width, height: this.height },
+      pos
+    );
+  }
   drawHitBox(context) {
     context.strokeStyle = "blue";
     context.lineWidth = "0.9";

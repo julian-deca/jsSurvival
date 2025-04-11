@@ -44,13 +44,7 @@ class Player extends Mob {
     this.facingRight = true;
     this.currentState = this.states["IDLE"];
     this.onGround = false;
-    this.hotBar = new HotBar(
-      game,
-      this.game.width / 2 - 360 / 2,
-      game.height - 45,
-      360,
-      9
-    );
+    this.hotBar = new HotBar(game, this.game.width / 2 - 360 / 2, 20, 360, 9);
   }
   draw(context) {
     if (!this.facingRight) {
@@ -84,7 +78,7 @@ class Player extends Mob {
     this.layers.forEach((layer) => {
       layer.draw(context, this.frameX, this.frameY);
     });
-    //this.hotBar.draw(context);
+    this.hotBar.draw(context);
     if (this.count >= this.maxCount) {
       this.getFrame();
       this.count = 0;
@@ -92,7 +86,33 @@ class Player extends Mob {
       this.count++;
     }
   }
-  update(keys) {
+  update(keys, wheel) {
+    if (
+      (this.x + this.width > this.game.width - this.game.screenThresholdX &&
+        this.facingRight) ||
+      (this.x < this.game.screenThresholdX && !this.facingRight)
+    ) {
+      if (this.facingRight) {
+        this.x -= this.speedX;
+        this.game.screenScrollX = -this.speedX;
+      } else {
+        this.x += this.speedX;
+        this.game.screenScrollX = this.speedX;
+      }
+    } else {
+      this.game.screenScrollX = 0;
+    }
+
+    if (
+      this.y + this.height > this.game.height - this.game.screenThresholdY ||
+      this.y < this.game.screenThresholdY
+    ) {
+      this.y -= this.speedY;
+      this.game.screenScrollY = -this.speedY;
+    } else {
+      this.game.screenScrollY = 0;
+    }
+
     this.y += this.speedY;
     if (!this.onGround) {
       if (this.speedY <= 20) {
@@ -175,6 +195,7 @@ class Player extends Mob {
         }
       }
     }
+    this.hotBar.update(wheel);
   }
 
   getFrame() {

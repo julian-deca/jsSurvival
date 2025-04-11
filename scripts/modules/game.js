@@ -11,10 +11,15 @@ class Game {
     this.floor = this.height - 60;
     this.gravity = 0.4;
     this.grid = grid;
+    this.screenScrollX = 0;
+    this.screenScrollY = 0;
+    this.screenThresholdX = 200;
+    this.screenThresholdY = 50;
+
     this.player = new Player(
       this,
       this.width / 2 - 10,
-      this.floor - 60,
+      (this.height / this.grid[0].length) * 25,
       80,
       64,
       images.playerSkin.sprite,
@@ -52,10 +57,11 @@ class Game {
       this.showDevGrid(context);
     }
   }
-  update(keys) {
+  update(keys, wheel, pos) {
     if (!this.pause) {
       this.mobs.forEach((object) => object.update(keys));
-      this.player.update(keys);
+      this.player.update(keys, wheel);
+      this.tiles.forEach((tile) => tile.update(keys, pos));
     }
     if (keys.includes("KeyP")) {
       this.pause = this.pause == true ? false : true;
@@ -82,6 +88,15 @@ class Game {
         rectOne.y + rectOne.height >= rectTwo.y &&
         rectOne.y <= rectTwo.y + rectTwo.height
       ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  checkCollisionPoint(rect, point) {
+    if (rect.x + rect.width >= point.x && rect.x <= point.x) {
+      if (rect.y + rect.height >= point.y && rect.y <= point.y) {
         return true;
       }
     }
