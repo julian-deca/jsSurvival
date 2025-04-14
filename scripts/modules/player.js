@@ -104,13 +104,22 @@ class Player extends Mob {
     }
 
     if (
-      this.y + this.height > this.game.height - this.game.screenThresholdY ||
-      this.y < this.game.screenThresholdY
+      this.y + this.height > this.game.height - this.game.screenThresholdY &&
+      !this.onGround
     ) {
       this.y -= this.speedY;
       this.game.screenScrollY = -this.speedY;
+      // console.log("a");
     } else {
       this.game.screenScrollY = 0;
+    }
+
+    if (this.topRect().y < this.game.screenThresholdY && !this.onGround) {
+      if (this.speedY < 0) {
+        this.y -= this.speedY;
+        this.game.screenScrollY = -this.speedY;
+      }
+      console.log("a");
     }
 
     this.y += this.speedY;

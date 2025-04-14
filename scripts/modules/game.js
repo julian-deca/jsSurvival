@@ -14,7 +14,7 @@ class Game {
     this.screenScrollX = 0;
     this.screenScrollY = 0;
     this.screenThresholdX = 200;
-    this.screenThresholdY = 50;
+    this.screenThresholdY = 100;
 
     this.player = new Player(
       this,

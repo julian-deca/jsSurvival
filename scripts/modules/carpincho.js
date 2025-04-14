@@ -50,6 +50,8 @@ class Carpincho extends Mob {
   }
   update() {
     this.x += this.game.screenScrollX;
+    this.y += this.game.screenScrollY;
+
     this.currentState.handleInput();
 
     this.y += this.speedY;
