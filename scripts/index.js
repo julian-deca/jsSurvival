@@ -48,7 +48,7 @@ canvas.addEventListener("mouseup", (e) => {
   pos.isDown = false;
 });
 
-readCsv("assets/grids/grid.csv").then((grid) => {
+readCsv("assets/grids/natural_terrain_grid.csv").then((grid) => {
   const game = new Game(WIDTH, HEIGHT, grid);
   const mouse = new MouseMovement(0, 0);
   function draw() {

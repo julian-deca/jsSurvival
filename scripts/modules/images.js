@@ -7,6 +7,8 @@ const woodenAxe = document.getElementById("woodenAxe");
 const woodenSword = document.getElementById("woodenSword");
 
 const dirtImage = document.getElementById("dirtImage");
+const stoneImage = document.getElementById("stoneImage");
+
 const inventoryFrame = document.getElementById("inventoryFrame");
 const selectedInventoryFrame = document.getElementById(
   "selectedInventoryFrame"
@@ -34,4 +36,5 @@ export {
   woodenSword,
   inventoryFrame,
   selectedInventoryFrame,
+  stoneImage,
 };

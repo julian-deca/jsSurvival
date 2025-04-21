@@ -1,5 +1,5 @@
 class Tile {
-  constructor(game, x, y, width, height, color, image) {
+  constructor(game, x, y, width, height, color, image, health) {
     this.x = x;
     this.y = y;
     this.height = height;
@@ -8,6 +8,7 @@ class Tile {
     this.game = game;
     this.image = image;
     this.highlight = false;
+    this.health = health;
   }
   draw(context) {
     context.fillStyle = this.color;

@@ -104,7 +104,7 @@ class Game {
   }
 
   mapGrid() {
-    const size = parseInt(this.height / (this.grid.length - 1));
+    const size = 28;
     this.grid.forEach((row, i) => {
       row.forEach((tile, j) => {
         this.devGrid.push([j * size, i * size, size, size]);
@@ -134,6 +134,19 @@ class Game {
                 size,
                 "black",
                 images.dirtImage
+              )
+            );
+            break;
+          case "03":
+            this.tiles.push(
+              new Tile(
+                this,
+                j * size,
+                i * size,
+                size,
+                size,
+                "black",
+                images.stoneImage
               )
             );
             break;
