@@ -14,7 +14,7 @@ class Game {
     this.screenScrollX = 0;
     this.screenScrollY = 0;
     this.screenThresholdX = 200;
-    this.screenThresholdY = 100;
+    this.screenThresholdY = 200;
 
     this.player = new Player(
       this,
@@ -26,7 +26,8 @@ class Game {
       10,
       images.playerSkin.width,
       images.playerSkin.height,
-      [images.playerSkin.hair, images.playerSkin.pants]
+      [images.playerSkin.hair, images.playerSkin.pants],
+      5
     );
     this.carpincho = new Carpincho(
       this,
@@ -60,7 +61,7 @@ class Game {
   update(keys, wheel, pos) {
     if (!this.pause) {
       this.mobs.forEach((object) => object.update(keys));
-      this.player.update(keys, wheel);
+      this.player.update(keys, wheel, pos);
       this.tiles.forEach((tile) => tile.update(keys, pos));
     }
     if (keys.includes("KeyP")) {
@@ -120,7 +121,9 @@ class Game {
                 size,
                 size,
                 "black",
-                images.grassImage
+                images.grassImage,
+                100,
+                images.crackingSprite
               )
             );
             break;
@@ -133,7 +136,9 @@ class Game {
                 size,
                 size,
                 "black",
-                images.dirtImage
+                images.dirtImage,
+                100,
+                images.crackingSprite
               )
             );
             break;
@@ -146,7 +151,9 @@ class Game {
                 size,
                 size,
                 "black",
-                images.stoneImage
+                images.stoneImage,
+                500,
+                images.crackingSprite
               )
             );
             break;

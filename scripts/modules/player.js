@@ -2,6 +2,7 @@ import { Run, Idle, Jump, Fall, Attack } from "./playerStates.js";
 import Mob from "./mob.js";
 import * as images from "./images.js";
 import Layer from "./playerLayer.js";
+import HandItemLayer from "./handItemLayer.js";
 import HotBar from "./hotBar.js";
 class Player extends Mob {
   constructor(
@@ -14,7 +15,8 @@ class Player extends Mob {
     jumpHeight,
     imageWidth,
     imageHeight,
-    layerImages
+    layerImages,
+    damage
   ) {
     super(
       game,
@@ -32,6 +34,7 @@ class Player extends Mob {
     layerImages.forEach((image) => {
       this.layers.push(new Layer(this, image));
     });
+    this.handItem = null;
     this.states = {
       RUN: new Run(this.game),
       IDLE: new Idle(this.game),
@@ -45,6 +48,7 @@ class Player extends Mob {
     this.currentState = this.states["IDLE"];
     this.onGround = false;
     this.hotBar = new HotBar(game, this.game.width / 2 - 360 / 2, 20, 360, 9);
+    this.damage = damage;
   }
   draw(context) {
     if (!this.facingRight) {
@@ -78,6 +82,9 @@ class Player extends Mob {
     this.layers.forEach((layer) => {
       layer.draw(context, this.frameX, this.frameY);
     });
+    if (this.handItem) {
+      this.handItem.draw(context, this.frameX, this.frameY);
+    }
     this.hotBar.draw(context);
     if (this.count >= this.maxCount) {
       this.getFrame();
@@ -86,7 +93,7 @@ class Player extends Mob {
       this.count++;
     }
   }
-  update(keys, wheel) {
+  update(keys, wheel, pos) {
     if (
       (this.x + this.width > this.game.width - this.game.screenThresholdX &&
         this.facingRight) ||
@@ -119,7 +126,6 @@ class Player extends Mob {
         this.y -= this.speedY;
         this.game.screenScrollY = -this.speedY;
       }
-      console.log("a");
     }
 
     this.y += this.speedY;
@@ -130,7 +136,7 @@ class Player extends Mob {
     } else {
       this.speedY = 0;
     }
-    this.currentState.handleInput(keys);
+    this.currentState.handleInput(keys, pos);
     if (keys.includes("KeyD") || keys.includes("ArrowRight")) {
       this.facingRight = true;
     } else if (keys.includes("KeyA") || keys.includes("ArrowLeft")) {
@@ -213,6 +219,21 @@ class Player extends Mob {
 
   setState(state) {
     super.setState(state);
+  }
+
+  addHandItem(item) {
+    this.handItem = new HandItemLayer(
+      this,
+      item.image.sprite,
+      item.damage,
+      item.type
+    );
+    this.damage = item.damage;
+  }
+  removeHandItem() {
+    delete this.handItem;
+    this.handItem = null;
+    this.damage = 5;
   }
 
   drawHitBox(context) {

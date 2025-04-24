@@ -1,6 +1,17 @@
 import * as images from "./images.js";
 class InventorySlot {
-  constructor(game, x, y, width, height, color, image, selectedImage, index) {
+  constructor(
+    game,
+    x,
+    y,
+    width,
+    height,
+    color,
+    image,
+    selectedImage,
+    index,
+    item = null
+  ) {
     this.index = index;
     this.x = x;
     this.y = y;
@@ -11,6 +22,7 @@ class InventorySlot {
     this.image = image;
     this.selectedImage = selectedImage;
     this.selected = false;
+    this.item = item;
   }
   draw(context) {
     this.selected
@@ -22,8 +34,17 @@ class InventorySlot {
           this.height
         )
       : context.drawImage(this.image, this.x, this.y, this.width, this.height);
+
+    if (this.item) {
+      this.item.draw(context);
+    }
   }
   update(keys) {}
+  addItem(item) {
+    this.item = item;
+    this.item.x = this.x;
+    this.item.y = this.y;
+  }
 }
 
 export default InventorySlot;

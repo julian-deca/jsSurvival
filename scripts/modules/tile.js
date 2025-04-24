@@ -1,5 +1,16 @@
 class Tile {
-  constructor(game, x, y, width, height, color, image, health) {
+  constructor(
+    game,
+    x,
+    y,
+    width,
+    height,
+    color,
+    image,
+    health,
+    crackingSprite,
+    coords
+  ) {
     this.x = x;
     this.y = y;
     this.height = height;
@@ -9,6 +20,10 @@ class Tile {
     this.image = image;
     this.highlight = false;
     this.health = health;
+    this.totalHealth = health;
+    this.breaking = false;
+    this.breakingFrame = 0;
+    this.crackingSprite = crackingSprite;
   }
   draw(context) {
     context.fillStyle = this.color;
@@ -27,6 +42,21 @@ class Tile {
         this.height - 2
       );
     }
+
+    if (this.breaking) {
+      context.drawImage(
+        this.crackingSprite.sprite,
+        this.breakingFrame * this.crackingSprite.width,
+        0,
+        this.crackingSprite.width,
+        this.crackingSprite.height,
+        this.x,
+        this.y,
+        this.width,
+        this.height
+      );
+    }
+
     //context.strokeRect(this.x, this.y, this.width, this.height);
 
     //this.drawHitBox(context);
@@ -35,11 +65,41 @@ class Tile {
   update(keys, pos) {
     this.x += this.game.screenScrollX;
     this.y += this.game.screenScrollY;
-
     this.highlight = this.game.checkCollisionPoint(
       { x: this.x, y: this.y, width: this.width, height: this.height },
       pos
     );
+    if (this.highlight && pos.isDown) {
+      this.breaking = true;
+    } else {
+      this.breaking = false;
+      this.health = this.totalHealth;
+    }
+    if (this.breaking && this.game.player.frameX == 3) {
+      this.health -= this.game.player.damage;
+      let healthPercentage = (this.health * 100) / this.totalHealth;
+      switch (true) {
+        case healthPercentage < 10:
+          this.breakingFrame++;
+          break;
+        case healthPercentage < 20:
+          this.breakingFrame++;
+
+          break;
+        case healthPercentage < 40:
+          this.breakingFrame++;
+
+          break;
+        case healthPercentage < 60:
+          this.breakingFrame++;
+
+          break;
+        case healthPercentage < 80:
+          this.breakingFrame++;
+
+          break;
+      }
+    }
   }
   drawHitBox(context) {
     context.strokeStyle = "blue";

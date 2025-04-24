@@ -16,7 +16,7 @@ export class Run extends State {
     this.game.player.frameY = 2;
     this.game.player.maxCount = 5;
   }
-  handleInput(keys) {
+  handleInput(keys, pos) {
     if (
       !(
         keys.includes("ArrowRight") ||
@@ -36,7 +36,7 @@ export class Run extends State {
         this.game.player.setState("JUMP");
       }
     }
-    if (keys.includes("KeyC")) {
+    if (pos.isDown) {
       this.game.player.setState("ATTACK");
     }
   }
@@ -53,7 +53,7 @@ export class Idle extends State {
     this.game.player.frameY = 0;
     this.game.player.maxCount = 15;
   }
-  handleInput(keys) {
+  handleInput(keys, pos) {
     if (
       keys.includes("ArrowRight") ||
       keys.includes("KeyD") ||
@@ -71,7 +71,7 @@ export class Idle extends State {
         this.game.player.setState("JUMP");
       }
     }
-    if (keys.includes("KeyC")) {
+    if (pos.isDown) {
       this.game.player.setState("ATTACK");
     }
   }
@@ -89,7 +89,7 @@ export class Jump extends State {
     this.game.player.frameY = 3;
     this.game.player.maxCount = 10;
   }
-  handleInput(keys) {
+  handleInput(keys, pos) {
     if (
       keys.includes("ArrowRight") ||
       keys.includes("KeyD") ||
@@ -100,7 +100,7 @@ export class Jump extends State {
     } else if (this.game.player.speedX > 0) {
       this.game.player.speedX -= 1;
     }
-    if (keys.includes("KeyC")) {
+    if (pos.isDown) {
       this.game.player.setState("ATTACK");
     }
     if (this.game.player.speedY >= 0) {
@@ -120,7 +120,7 @@ export class Fall extends State {
     this.game.player.frameY = 4;
     this.game.player.maxCount = 10;
   }
-  handleInput(keys) {
+  handleInput(keys, pos) {
     if (
       keys.includes("ArrowRight") ||
       keys.includes("KeyD") ||
@@ -131,7 +131,7 @@ export class Fall extends State {
     } else if (this.game.player.speedX > 0) {
       this.game.player.speedX -= 1;
     }
-    if (keys.includes("KeyC")) {
+    if (pos.isDown) {
       this.game.player.setState("ATTACK");
     }
     if (this.game.player.onGround) {
@@ -150,7 +150,7 @@ export class Attack extends State {
     this.game.player.frameY = 5;
     this.game.player.maxCount = 4;
   }
-  handleInput(keys) {
+  handleInput(keys, pos) {
     if (this.game.player.frameX >= this.game.player.maxFrameX - 1) {
       this.game.player.setState("IDLE");
     }

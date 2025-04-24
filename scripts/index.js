@@ -7,7 +7,7 @@ const canvas = document.getElementById("canvas");
 //const scoreLeft = document.getElementById("score-left");
 const context = canvas.getContext("2d");
 const WIDTH = 800;
-const HEIGHT = 400;
+const HEIGHT = 600;
 canvas.height = HEIGHT;
 canvas.width = WIDTH;
 title.innerText = "";
@@ -25,13 +25,13 @@ document.addEventListener("keyup", (e) => {
 });
 document.addEventListener("wheel", (e) => {
   if (e.wheelDeltaY < 0) {
+    wheel += 1;
+    if (wheel > 8) wheel = 0;
+  } else {
     wheel -= 1;
     if (wheel < 0) {
       wheel = 8;
     }
-  } else {
-    wheel += 1;
-    if (wheel > 8) wheel = 0;
   }
 });
 canvas.addEventListener("mousemove", (e) => {
